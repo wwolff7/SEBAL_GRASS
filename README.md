@@ -1,4 +1,4 @@
-# SEBAL_GRASS
+# SEBAL_GRASS [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.167350.svg)](https://doi.org/10.5281/zenodo.167350)
 
 ## Requirements
 
