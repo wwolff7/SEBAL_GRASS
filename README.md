@@ -42,11 +42,11 @@
    - Follow the instrustructions indicated in Terminal
    - Use query tool to visualise cold and hot pixels in GRASS GIS display
 
-# Remarks
+## Remarks
 
 * Tested on Ubuntu 14.04 and 16.04 LTS 
 
-# References
+## References
 
 ALLEN, R. G.; TASUMI, M.; TREZZA, R. Satellite-Based Energy Balance for
 Mapping Evapotranspiration with Internalized Calibration (METRIC)-Model. **Journal of
