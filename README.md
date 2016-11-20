@@ -40,7 +40,7 @@
    - Run python in command line:
    - `python Sebal70.py`
    - Follow the instrustructions indicated in Terminal
-   - use query tool to visualise cold and hot pixels in GRASS GIS display
+   - Use query tool to visualise cold and hot pixels in GRASS GIS display
 
 # Remarks
 
