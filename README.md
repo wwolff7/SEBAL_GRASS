@@ -55,7 +55,7 @@ Irrigation and Drainage Engineering**, v. 133, n. 4, p. 380–394, 2007. Availab
 
 BASTIAANSSEN, W. G. M.; MENENTI, M.; FEDDES, R. A.; HOLTSLAG, A.
 A. M. A remote sensing surface energy balance algorithm for land (SEBAL). 1.
-Formulation.**Journal of Hydrology**, v. 212–213, n. 1–4, p. 198–212, 1998. Available at:
+Formulation. **Journal of Hydrology**, v. 212–213, n. 1–4, p. 198–212, 1998. Available at:
 <http://linkinghub.elsevier.com/retrieve/pii/S0022169498002534>.
 
 SILVA, B. B.; BRAGA, A. C.; BRAGA, C. C.; OLIVEIRA, L. M. M. D.; MONTENEGRO,
