@@ -37,7 +37,7 @@ g.parse_command('i.landsat.toar', input=basename[0:(len(basename)-5)], output='L
 
 print 'Done!'
 
-print 'Composite R=B4 G=B3 B=B2 Landsat 8, be patient...'
+print 'Composite R=B6 G=B5 B=B3 Landsat 8, be patient...'
 
 grass.run_command('i.colors.enhance', red='LS8_corre6',green='LS8_corre5',blue='LS8_corre2',quiet=True)
 grass.run_command('r.composite',red='LS8_corre6', green='LS8_corre5',
