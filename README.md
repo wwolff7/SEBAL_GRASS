@@ -38,7 +38,7 @@
 
 9. In Terminal Linux navigate into the directory where is located the **Sebal70.py** and the images LS8
    - Run python in command line:
-   - `python Sebal70.py`
+     - `python Sebal70.py`
    - Follow the instrustructions indicated in Terminal
    - Use query tool to visualise cold and hot pixels in GRASS GIS display
 
