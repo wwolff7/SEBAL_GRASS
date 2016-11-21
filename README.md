@@ -9,7 +9,7 @@
 
 ### Organization of datasets 
 
-1. Make the download of Landsat 8 scene (LS8 OLI/TIRS) at [Earth Explorer] (http://earthexplorer.usgs.gov/)
+1. Download at [Earth Explorer] (http://earthexplorer.usgs.gov/) Landsat 8 scene (LS8 - OLI/TIRS)
     - For a scene without clouds, select the option **Level 1 GeoTIFF Data
     Product**
 
@@ -17,13 +17,13 @@
    - e.g, WGS 84 24N to SIRGAS 2000 24S, using gdal recursively in command line:
    - `mkdir rep && for i in *.TIF ; do gdalwarp -s_srs EPSG:32624 -t_srs EPSG:31984 -of GTiff $i rep\$i; done` 
 
-4. Remove the null values (black borders) of LS8 images 
+4. Remove null values (black borders) of LS8 images 
    - e.g, using gdal recursively in command line:
    - `mkdir nodata && for i in *.TIF; do gdal_translate -a_nodata 0 $i nodata/$i; done` 
 
-5. For the same region of LS8 scene make the download of the ASTER GLOBAL DEM at [Earth Explorer] (http://earthexplorer.usgs.gov/)
+5. Download at [Earth Explorer] (http://earthexplorer.usgs.gov/) the Digital Elevation Model (DEM) from ASTER (remember to choose the same region of LS8 scene)
    
-6. Reproject the DEM for coordinate system of interest and rename to **MDT_Sebal.TIF**
+6. It is necessary reproject the DEM for coordinate system of interest and rename to **MDT_Sebal.TIF**
    - e.g, WGS 84 24N to SIRGAS 2000 24S, using gdal in command line:
    - `gdalwarp -s_srs EPSG:32624 -t_srs EPSG:31984 -of GTiff ASTGTM2_S23W048.tif MDT_Sebal.TIF` 
 
