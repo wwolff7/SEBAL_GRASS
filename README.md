@@ -23,23 +23,23 @@
 
 5. Download at [Earth Explorer] (http://earthexplorer.usgs.gov/) the Digital Elevation Model (DEM) from ASTER (remember to choose the same region of LS8 scene)
    
-6. It is necessary reproject the DEM for coordinate system of interest and rename to **MDT_Sebal.TIF**
+6. It is necessary to reproject the DEM for the coordinate system of interest and rename to **MDT_Sebal.TIF**
    - e.g, WGS 84 24N to SIRGAS 2000 24S, using gdal in command line:
    - `gdalwarp -s_srs EPSG:32624 -t_srs EPSG:31984 -of GTiff ASTGTM2_S23W048.tif MDT_Sebal.TIF` 
 
 7. Launch a GRASS-GIS 7.X session
     - Select GRASS GIS database directory
     - Define a new GRASS location 
-      - Read a projection and datum terms from a georeferenced data file
+      - Read the projection and datum terms from a georeferenced data file
       - Select the raster **MDT_Sebal.TIF** 
     - Define a new GRASS mapset  
 
-8. Place **Sebal70.py** script in directory where is located LS8 images
+8. Place **Sebal70.py** script in the directory where the LS8 images are located
 
-9. In Terminal Linux navigate into the directory where is located the **Sebal70.py** and the images LS8
+9. In Terminal Linux navigate into the directory where the the **Sebal70.py** and the images LS8 are located
    - Run python in command line:
      - `python Sebal70.py`
-   - Follow the instrustructions indicated in Terminal
+   - Follow the instructions indicated in Terminal
    - Use query tool to visualise cold and hot pixels in GRASS GIS display
 
 ## Remarks
