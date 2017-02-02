@@ -56,8 +56,8 @@ grass.mapcalc('NDVI=($LS8_corre5-$LS8_corre4)/($LS8_corre5+$LS8_corre4)',
   
 print 'Done!'
   
-print 'Calculating SAVI with L equal to 0.1...'
-Lsavi = 0.1 #float(input('Entre com o valor de L: '))
+print 'Calculating SAVI with L equal to 0.5...'
+Lsavi = 0.5 #float(input('Entre com o valor de L: '))
  
 grass.mapcalc('SAVI= (($LS8_corre5-$LS8_corre4)/($LS8_corre5+$LS8_corre4+$Lsavi))*(1+$Lsavi)',
                 LS8_corre4='LS8_corre4',
@@ -245,7 +245,7 @@ print 'Done!'
  
 
 print 'Making the cold pixel mask...'
-grass.mapcalc('Pcold=if($NDVI>0.4 && $aS<0.14 && $Ts<$Ts_mean,$Ts,null())',
+grass.mapcalc('Pcold=if($NDVI>0.4 && $Ts<$Ts_mean,$Ts,null())',
               NDVI='NDVI',
               aS='aS',
               Ts='Ts',
@@ -280,7 +280,7 @@ print 'Done!'
 print 'Calculating net radiation flux (Rn) - W/m2...'
 
 grass.mapcalc('Rn=(1-$aS)*$Rsi+$RLi-$RLo-(1-$e0f)*$RLi',
-              aS='aS',
+'              aS='aS',
               RLi='RLi',
               RLo='RLo',
               Rsi='Rsi',
@@ -313,8 +313,8 @@ print 'Done!'
 
 print 'Making the hot pixel mask...'
 
-grass.mapcalc('Phot=if($NDVI>0.1 && $NDVI<0.4 && $aS>0.14 && $aS<0.2 && $Ts>$Ts_mean, $Ts,null())',
-              NDVI='NDVI',
+grass.mapcalc('Phot=if($SAVI>0.18 && $SAVI<0.3, $Ts,null())',
+              SAVI='SAVI',
               aS='aS',
               Ts='Ts',
               Ts_mean=Ts_mean,
@@ -516,6 +516,4 @@ grass.mapcalc('ETday=$ETof*$ETo',
               quiet='true')
          
 print 'Done!'
-
-
 
