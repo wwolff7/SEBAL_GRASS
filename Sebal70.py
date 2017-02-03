@@ -16,7 +16,7 @@ u_2m = float(input('Place the wind speed value for height of the 2 m measured in
 
 EToi = float(input('Place the instantaneous value of reference evapotranspiration (EToi) from the weather station, for the time of the satellite overpass - (mm): '))
 
-ETo = float(input('Place the daily value of reference evapotranspiration (EToi) from the weather station - (mm): '))
+ETo = float(input('Place the daily value of reference evapotranspiration (ETo) from the weather station - (mm): '))
 
 g.parse_command('g.region',flags='p',rast='MDT_Sebal@PERMANENT',quiet=True)
 
