@@ -253,7 +253,7 @@ grass.mapcalc('Pcold=if($NDVI>0.4 && $Ts<$Ts_median,$Ts,null())',
               quiet='true')
 
 
-print 'Choose the cold pixel coordinates in irrigation areas. Use the raster Pcold and CC_653 for help...'
+print 'Choose the cold pixel coordinates in irrigation areas. Use the raster Pcold and CC_652 for help...'
 
 xy_Pcold = str(input('Place coordinates (east,north): ')).strip('()')
 
@@ -321,7 +321,7 @@ grass.mapcalc('Phot=if($SAVI>0.18 && $SAVI<0.3, $Ts,null())',
               overwrite='true',
               quiet='true')
 
-print 'Choose the hot pixel coordinates in bare soil areas. Use the raster Phot and CC_653 for help...'
+print 'Choose the hot pixel coordinates in bare soil areas. Use the raster Phot and CC_652 for help...'
 
 xy_Phot = str(input('Place coordinates (east,north): ')).strip('()')
 
