@@ -20,7 +20,7 @@ ETo = float(input('Place the daily value of reference evapotranspiration (ETo) f
 
 g.parse_command('g.region',flags='p',rast='MDT_Sebal@PERMANENT',quiet=True)
 
-rodar = g.parse_command('g.list',type='raster', pattern='CC_653')
+rodar = g.parse_command('g.list',type='raster', pattern='CC_652')
 
 if (rodar == {}):
 	print 'Importing Landsat 8 images, be patient...'
@@ -40,11 +40,11 @@ if (rodar == {}):
 
 	print 'Done!'
 
-	print 'Composite R=B4 G=B3 B=B2 Landsat 8, be patient...'
+	print 'Composite R=B6 G=5 B=B2 Landsat 8, be patient...'
 
 	grass.run_command('i.colors.enhance', red='LS8_corre6',green='LS8_corre5',blue='LS8_corre2',quiet=True)
 	grass.run_command('r.composite',red='LS8_corre6', green='LS8_corre5',
-                  blue='LS8_corre2', output='CC_653',quiet=True,overwrite=True)
+                  blue='LS8_corre2', output='CC_652',quiet=True,overwrite=True)
 
 	print 'Done!'
 
@@ -256,7 +256,7 @@ grass.mapcalc('Pcold=if($NDVI>0.4 && $Ts<$Ts_median,$Ts,null())',
               quiet='true')
 
 
-print 'Choose the cold pixel coordinates in irrigation areas. Use the raster Pcold and CC_653 for help...'
+print 'Choose the cold pixel coordinates in irrigation areas. Use the raster Pcold and CC_652 for help...'
 
 xy_Pcold = str(input('Place coordinates (east,north): ')).strip('()')
 
@@ -324,7 +324,7 @@ grass.mapcalc('Phot=if($SAVI>0.18 && $SAVI<0.3, $Ts,null())',
               overwrite='true',
               quiet='true')
 
-print 'Choose the hot pixel coordinates in bare soil areas. Use the raster Phot and CC_653 for help...'
+print 'Choose the hot pixel coordinates in bare soil areas. Use the raster Phot and CC_652 for help...'
 
 xy_Phot = str(input('Place coordinates (east,north): ')).strip('()')
 
