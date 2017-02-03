@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8
 
 import numpy  
@@ -35,14 +34,14 @@ if (rodar == {}):
 
 	print 'Calculates top-of-atmosphere reflectance and temperature for Landsat 8, be patient...'
 	
-	g.parse_command('i.landsat.toar', input=basename[0:(len(basename)-6)], output='LS8_corre',metfile=MTLfile, sensor='oli8',overwrite=True)
+	g.parse_command('i.landsat.toar', input=basename[0:(len(basename)-6)], output= 'LS8_corre', metfile=MTLfile, sensor='oli8',overwrite=True)
 
 	print 'Done!'
 
-	print 'Composite R=B6 G=5 B=B2 Landsat 8, be patient...'
+	print 'Composite R=B6 G=B5 B=B2 Landsat 8, be patient...'
 
 	grass.run_command('i.colors.enhance', red='LS8_corre6',green='LS8_corre5',blue='LS8_corre2',quiet=True)
-	grass.run_command('r.composite',red='LS8_corre6', green='LS8_corre5',blue='LS8_corre2', output='CC_652',quiet=True,overwrite=True)
+	grass.run_command('r.composite',red='LS8_corre6', green='LS8_corre5', blue='LS8_corre2', output='CC_652',quiet=True,overwrite=True)
 
 	print 'Done!'
 
@@ -254,7 +253,7 @@ grass.mapcalc('Pcold=if($NDVI>0.4 && $Ts<$Ts_median,$Ts,null())',
               quiet='true')
 
 
-print 'Choose the cold pixel coordinates in irrigation areas. Use the raster Pcold and CC_652 for help...'
+print 'Choose the cold pixel coordinates in irrigation areas. Use the raster Pcold and CC_653 for help...'
 
 xy_Pcold = str(input('Place coordinates (east,north): ')).strip('()')
 
@@ -322,7 +321,7 @@ grass.mapcalc('Phot=if($SAVI>0.18 && $SAVI<0.3, $Ts,null())',
               overwrite='true',
               quiet='true')
 
-print 'Choose the hot pixel coordinates in bare soil areas. Use the raster Phot and CC_652 for help...'
+print 'Choose the hot pixel coordinates in bare soil areas. Use the raster Phot and CC_653 for help...'
 
 xy_Phot = str(input('Place coordinates (east,north): ')).strip('()')
 
@@ -516,4 +515,3 @@ grass.mapcalc('ETday=$ETof*$ETo',
               quiet='true')
          
 print 'Done!'
-
