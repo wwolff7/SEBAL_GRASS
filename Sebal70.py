@@ -35,16 +35,14 @@ if (rodar == {}):
 
 	print 'Calculates top-of-atmosphere reflectance and temperature for Landsat 8, be patient...'
 	
-	g.parse_command('i.landsat.toar', input=basename[0:(len(basename)-5)], output='LS8_corre',
-                metfile=MTLfile, sensor='oli8',overwrite=True)
+	g.parse_command('i.landsat.toar', input=basename[0:(len(basename)-6)], output='LS8_corre',metfile=MTLfile, sensor='oli8',overwrite=True)
 
 	print 'Done!'
 
 	print 'Composite R=B6 G=5 B=B2 Landsat 8, be patient...'
 
 	grass.run_command('i.colors.enhance', red='LS8_corre6',green='LS8_corre5',blue='LS8_corre2',quiet=True)
-	grass.run_command('r.composite',red='LS8_corre6', green='LS8_corre5',
-                  blue='LS8_corre2', output='CC_652',quiet=True,overwrite=True)
+	grass.run_command('r.composite',red='LS8_corre6', green='LS8_corre5',blue='LS8_corre2', output='CC_652',quiet=True,overwrite=True)
 
 	print 'Done!'
 
