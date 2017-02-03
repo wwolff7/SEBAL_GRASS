@@ -25,7 +25,7 @@ if (rodar == {}):
 	print 'Importing Landsat 8 images, be patient...'
 
 	files = [i for i in os.listdir('.') if i.endswith('.TIF')]
-	basename = files[1]
+	basename = files[3]
 
 	for i in range(len(files)):
 		g.parse_command('r.in.gdal', input=files[i], output=os.path.splitext(files[i])[0], overwrite=True)
