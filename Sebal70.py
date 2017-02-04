@@ -34,7 +34,7 @@ if (rodar == {}):
 
 	print 'Calculates top-of-atmosphere reflectance and temperature for Landsat 8, be patient...'
 	
-	g.parse_command('i.landsat.toar', input=basename[0:(len(basename)-6)], output= 'LS8_corre', metfile=MTLfile, sensor='oli8',overwrite=True)
+	g.parse_command('i.landsat.toar', input=basename[0:(len(basename)-5)], output= 'LS8_corre', metfile=MTLfile, sensor='oli8',overwrite=True)
 
 	print 'Done!'
 
