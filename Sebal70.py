@@ -11,6 +11,9 @@ system('clear')
 
 MTLfile = [i for i in os.listdir('.') if i.endswith('MTL.txt')]
 
+files = [i for i in os.listdir('.') if i.endswith('.TIF')]
+basename = files[4]
+
 u_2m = float(input('Place the wind speed value for height of the 2 m measured in the weather station - (m/s): '))
 
 EToi = float(input('Place the instantaneous value of reference evapotranspiration (EToi) from the weather station, for the time of the satellite overpass - (mm): '))
@@ -23,9 +26,6 @@ rodar = g.parse_command('g.list',type='raster', pattern='CC_652')
 
 if (rodar == {}):
 	print 'Importing Landsat 8 images, be patient...'
-
-	files = [i for i in os.listdir('.') if i.endswith('.TIF')]
-	basename = files[3]
 
 	for i in range(len(files)):
 		g.parse_command('r.in.gdal', input=files[i], output=os.path.splitext(files[i])[0], overwrite=True)
