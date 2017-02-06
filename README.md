@@ -1,4 +1,4 @@
-# SEBAL_GRASS
+# SEBAL_GRASS [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.167350.svg)](https://doi.org/10.5281/zenodo.167350)
 
 ## Requirements
 
@@ -9,7 +9,7 @@
 
 ### Organization of datasets 
 
-1. Make the download of Landsat 8 scene (LS8 OLI/TIRS) at [Earth Explorer] (http://earthexplorer.usgs.gov/)
+1. Download at [Earth Explorer] (http://earthexplorer.usgs.gov/) Landsat 8 scene (LS8 - OLI/TIRS)
     - For a scene without clouds, select the option **Level 1 GeoTIFF Data
     Product**
 
@@ -17,30 +17,35 @@
    - e.g, WGS 84 24N to SIRGAS 2000 24S, using gdal recursively in command line:
    - `mkdir rep && for i in *.TIF ; do gdalwarp -s_srs EPSG:32624 -t_srs EPSG:31984 -of GTiff $i rep\$i; done` 
 
-4. Remove the null values (black borders) of LS8 images 
+4. Remove null values (black borders) of LS8 images 
    - e.g, using gdal recursively in command line:
    - `mkdir nodata && for i in *.TIF; do gdal_translate -a_nodata 0 $i nodata/$i; done` 
 
-5. For the same region of LS8 scene make the download of the ASTER GLOBAL DEM at [Earth Explorer] (http://earthexplorer.usgs.gov/)
+5. Download at [Earth Explorer] (http://earthexplorer.usgs.gov/) the Digital Elevation Model (DEM) from ASTER (remember to choose the same region of LS8 scene)
    
-6. Reproject the DEM for coordinate system of interest and rename to **MDT_Sebal.TIF**
+6. It is necessary to reproject the DEM for the coordinate system of interest and rename to **MDT_Sebal.TIF**
    - e.g, WGS 84 24N to SIRGAS 2000 24S, using gdal in command line:
    - `gdalwarp -s_srs EPSG:32624 -t_srs EPSG:31984 -of GTiff ASTGTM2_S23W048.tif MDT_Sebal.TIF` 
 
 7. Launch a GRASS-GIS 7.X session
     - Select GRASS GIS database directory
     - Define a new GRASS location 
-      - Read a projection and datum terms from a georeferenced data file
+      - Read the projection and datum terms from a georeferenced data file
       - Select the raster **MDT_Sebal.TIF** 
     - Define a new GRASS mapset  
 
-8. Place **Sebal70.py** script in directory where is located LS8 images
+8. Place **Sebal70.py** script in the directory where the LS8 images are located
 
-9. In Terminal Linux navigate into the directory where is located the **Sebal70.py** and the images LS8
+9. In Terminal Linux navigate into the directory where the the **Sebal70.py** and the images LS8 are located
    - Run python in command line:
      - `python Sebal70.py`
+<<<<<<< HEAD
    - Follow the instrustructions indicated in Terminal
    - use query tool to visualise cold and hot pixels in GRASS GIS display
+=======
+   - Follow the instructions indicated in Terminal
+   - Use query tool to visualise cold and hot pixels in GRASS GIS display
+>>>>>>> fff5391779a95d7807710dd9bd2f3c77cb3a5b94
 
 ## Remarks
 
