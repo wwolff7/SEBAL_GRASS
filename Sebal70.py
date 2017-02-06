@@ -197,12 +197,7 @@ elif (runRLo == {}):
 
         print 'Done!'
 
-
-        Ts_median=g.parse_command('r.univar', flags='ge', map='Ts', quiet = True)['median']
-        
-        print 'Median surface temperature:', Ts_median,'K'
-
-        print 'Calculating shortwave transmissivity of air (Tsw)...'
+      	print 'Calculating shortwave transmissivity of air (Tsw)...'
 
         grass.mapcalc('Tsw=0.75+0.00002*$MDT_Sebal',
               MDT_Sebal='MDT_Sebal',
@@ -243,8 +238,12 @@ elif (runRLo == {}):
 
         print 'Done!'
 else:
-
-        print 'Making the cold pixel mask...'
+ 	
+	Ts_median=g.parse_command('r.univar', flags='ge', map='Ts', quiet = True)['median']
+        
+        print 'Median surface temperature:', Ts_median,'K'
+        
+	print 'Making the cold pixel mask...'
         
         grass.mapcalc('Pcold=if($NDVI>0.4 && $Ts<$Ts_median,$Ts,null())',
               NDVI='NDVI',
