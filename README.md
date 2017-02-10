@@ -34,22 +34,17 @@
       - Select the raster **MDT_Sebal.TIF** 
     - Define a new GRASS mapset  
 
-8. Place **Sebal70.py** script in the directory where the LS8 images are located
+8. Place **Sebal70.py** script in the directory where LS8 images are located
 
-9. In Terminal Linux navigate into the directory where the the **Sebal70.py** and the images LS8 are located
+9. In Terminal Linux navigate into the directory where the **Sebal70.py** and LS8 images are located
    - Run python in command line:
      - `python Sebal70.py`
-<<<<<<< HEAD
    - Follow the instrustructions indicated in Terminal
-   - use query tool to visualise cold and hot pixels in GRASS GIS display
-=======
-   - Follow the instructions indicated in Terminal
-   - Use query tool to visualise cold and hot pixels in GRASS GIS display
->>>>>>> fff5391779a95d7807710dd9bd2f3c77cb3a5b94
+   - Use query tool to visualize cold and hot pixels in GRASS GIS display
 
 ## Remarks
 
-* Tested on Ubuntu 14.04 and 16.04 LTS 
+* Tested on Ubuntu 14.04, 16.04 LTS, and Windows 8.
 
 ## References
 
