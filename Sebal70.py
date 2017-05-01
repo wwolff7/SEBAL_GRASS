@@ -219,7 +219,7 @@ elif (runRLo == {}):
 
         print 'Calculating incoming shortwave radiation (Rsi) - W/m2...'
 
-        grass.mapcalc('Rsi=1367*cos(90-$SUN_ELEVATION)*(1/$d)^2*$Tsw',
+        grass.mapcalc('Rsi=1367*cos(90-$SUN_ELEVATION)*1/($d^2)*$Tsw',
               SUN_ELEVATION=SUN_ELEVATION,
               Tsw='Tsw',
               d=d,
