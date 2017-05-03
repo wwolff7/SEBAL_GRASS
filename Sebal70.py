@@ -150,10 +150,16 @@ if runRLo == {}:
                       overwrite='true',
                       quiet='true')
         print 'Done!'
+<<<<<<< HEAD
         
         print 'Median surface temperature:', Ts_median,'K'
         
         print 'Calculating shortwave transmissivity of air (Tsw)...'
+=======
+
+      	print 'Calculating shortwave transmissivity of air (Tsw)...'
+
+>>>>>>> a4cc51391c68e22664f84aedc9f4ddcb0f3f80b5
         grass.mapcalc('Tsw=0.75+0.00002*$MDT_Sebal',
                       MDT_Sebal='MDT_Sebal',
                       overwrite='true',
@@ -169,12 +175,23 @@ if runRLo == {}:
         print 'Done!'
         
         print 'Calculating incoming shortwave radiation (Rsi) - W/m2...'
+<<<<<<< HEAD
         grass.mapcalc('Rsi=1367*cos(90-$SUN_ELEVATION)*(1/$d)^2*$Tsw',
                       SUN_ELEVATION=SUN_ELEVATION,
                       Tsw='Tsw',
                       d=d,
                       overwrite='true',
                       quiet='true')
+=======
+
+        grass.mapcalc('Rsi=1367*cos(90-$SUN_ELEVATION)*1/($d^2)*$Tsw',
+              SUN_ELEVATION=SUN_ELEVATION,
+              Tsw='Tsw',
+              d=d,
+              overwrite='true',
+              quiet='true')
+
+>>>>>>> a4cc51391c68e22664f84aedc9f4ddcb0f3f80b5
         print 'Done!'
         
         print 'Calculating outgoing longwave radiation (RLo) - W/m2...'
@@ -184,10 +201,22 @@ if runRLo == {}:
                       overwrite='true',
                       quiet='true')
         print 'Done!'
+<<<<<<< HEAD
 
 print 'Making the cold pixel mask...'
 Ts_median=g.parse_command('r.univar', flags='ge', map='Ts', quiet = True)['median']        
 grass.mapcalc('Pcold=if($NDVI>0.4 && $Ts<$Ts_median,$Ts,null())',
+=======
+else:
+ 	
+	Ts_median=g.parse_command('r.univar', flags='ge', map='Ts', quiet = True)['median']
+        
+        print 'Median surface temperature:', Ts_median,'K'
+        
+	print 'Making the cold pixel mask...'
+        
+        grass.mapcalc('Pcold=if($NDVI>0.4 && $Ts<$Ts_median,$Ts,null())',
+>>>>>>> a4cc51391c68e22664f84aedc9f4ddcb0f3f80b5
               NDVI='NDVI',
               aS='aS',
               Ts='Ts',
