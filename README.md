@@ -71,6 +71,6 @@ Irrigation and Drainage Engineering**, v. 131, n. 1, p. 94–109, 2005. Availabl
 
 ## Acknowledgements
 
-To the grant 2016/15342-2, S ̃ao Paulo Research Foundation (FAPESP) by the financial support.
+To the grant 2016/15342-2, São Paulo Research Foundation (FAPESP) by the financial support.
 
 
