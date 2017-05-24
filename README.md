@@ -69,7 +69,8 @@ Balance to Assess Within-Population Variance of Crop Coefficient Curves. **Journ
 Irrigation and Drainage Engineering**, v. 131, n. 1, p. 94–109, 2005. Available at:
 <http://ascelibrary.org/doi/10.1061/(ASCE)0733-9437(2005)131:1(94)>.
 
+## Acknowledgements
 
-
+To the grant 2016/15342-2, S ̃ao Paulo Research Foundation (FAPESP) by the financial support.
 
 
