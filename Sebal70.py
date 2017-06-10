@@ -21,7 +21,7 @@ ETo = float(input('Place the daily value of reference evapotranspiration (ETo) f
 
 g.parse_command('g.region',flags='p',rast='MDT_Sebal@PERMANENT',quiet=True)
 
-runCC = g.parse_command('g.list',type='raster', pattern='CC_652')
+runCC = g.parse_command('g.list',type='raster', pattern='CC_432')
 runRLo = g.parse_command('g.list',type='raster', pattern='RLo')
 
 if runCC == {}:
@@ -32,11 +32,13 @@ if runCC == {}:
  
         print 'Calculates top-of-atmosphere reflectance and temperature for Landsat 8, be patient...'
         g.parse_command('i.landsat.toar', input=files[0].split('_B')[0] + '_B', output= 'LS8_corre', metfile=MTLfile, sensor='oli8',overwrite=True)
-        print 'Done!'
+        print 'Done!'        
 
-        print 'Composite R=B6 G=B5 B=B2 Landsat 8, be patient...'
-        grass.run_command('i.colors.enhance', red='LS8_corre6',green='LS8_corre5',blue='LS8_corre2',quiet=True)
-        grass.run_command('r.composite',red='LS8_corre6', green='LS8_corre5', blue='LS8_corre2', output='CC_652',quiet=True,overwrite=True)
+        g.parse_command('g.remove', type='raster', pattern=files[0].split('_B')[0] + '*', flags = 'f')
+
+        print 'Composite R=B4 G=B3 B=B2 Landsat 8, be patient...'
+        grass.run_command('i.colors.enhance', red='LS8_corre4',green='LS8_corre3',blue='LS8_corre2',quiet=True)
+        grass.run_command('r.composite',red='LS8_corre6', green='LS8_corre5', blue='LS8_corre2', output='CC_432',quiet=True,overwrite=True)
         print 'Done!'
 if runRLo == {}:
         print 'Calculating NDVI...'
@@ -168,7 +170,7 @@ if runRLo == {}:
         print 'Done!'
         
         print 'Calculating incoming shortwave radiation (Rsi) - W/m2...'
-        grass.mapcalc('Rsi=1367*cos(90-$SUN_ELEVATION)*(1/$d)^2*$Tsw',
+        grass.mapcalc('Rsi=1367*cos(90-$SUN_ELEVATION)*(1/($d^2))*$Tsw',
                       SUN_ELEVATION=SUN_ELEVATION,
                       Tsw='Tsw',
                       d=d,
@@ -193,7 +195,7 @@ grass.mapcalc('Pcold=if($NDVI>0.4 && $Ts<$Ts_median,$Ts,null())',
               Ts_median=Ts_median,
               overwrite='true',
               quiet='true')
-print 'Choose the cold pixel coordinates in irrigation areas. Use the raster Pcold and CC_652 for help...'
+print 'Choose the cold pixel coordinates in irrigation areas. Use the raster Pcold and CC_432 for help...'
 xy_Pcold = str(input('Place coordinates (east,north): ')).strip('()')
 print xy_Pcold
 TsPcold_z=g.parse_command('r.what', map='Ts', coordinates=xy_Pcold)
@@ -240,7 +242,7 @@ grass.mapcalc('Phot=if($SAVI>0.18 && $SAVI<0.3, $Ts,null())',
               #Ts_max=Ts_max,
               overwrite='true',
               quiet='true')
-print 'Choose the hot pixel coordinates in bare soil areas. Use the raster Phot and CC_652 for help...'
+print 'Choose the hot pixel coordinates in bare soil areas. Use the raster Phot and CC_432 for help...'
 xy_Phot = str(input('Place coordinates (east,north): ')).strip('()')
 print xy_Phot
 print 'Done!'
