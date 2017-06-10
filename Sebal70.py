@@ -11,8 +11,7 @@ system('clear')
 
 MTLfile = [i for i in os.listdir('.') if i.endswith('MTL.txt')]
 
-files = [i for i in os.listdir('.') if i.endswith('.TIF')]
-basename = files[4]
+files = [i for i in os.listdir('.') if i.endswith(('.TIF','.tif'))]
 
 u_2m = float(input('Place the wind speed value for height of the 2 m measured in the weather station - (m/s): '))
 
@@ -32,7 +31,7 @@ if runCC == {}:
         print 'Done!'
  
         print 'Calculates top-of-atmosphere reflectance and temperature for Landsat 8, be patient...'
-        g.parse_command('i.landsat.toar', input=basename[0:(len(basename)-5)], output= 'LS8_corre', metfile=MTLfile, sensor='oli8',overwrite=True)
+        g.parse_command('i.landsat.toar', input=files[0].split('_B')[0] + '_B', output= 'LS8_corre', metfile=MTLfile, sensor='oli8',overwrite=True)
         print 'Done!'
 
         print 'Composite R=B6 G=B5 B=B2 Landsat 8, be patient...'
