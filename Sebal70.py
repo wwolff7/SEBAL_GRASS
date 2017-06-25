@@ -92,66 +92,6 @@ if runRLo == {}:
         print 'Done!'
         
         Ts_median=g.parse_command('r.univar', flags='ge', map='Ts', quiet = True)['median']        
-        for line in open(MTLfile[0]):
-                if 'EARTH_SUN_DISTANCE' in line:
-                        d=float(line.split('=')[-1])
-                elif 'RADIANCE_MAXIMUM_BAND_2' in line:
-                        RADIANCE_MAXIMUM_BAND_2=float(line.split('=')[-1])
-                elif 'RADIANCE_MAXIMUM_BAND_3' in line:
-                        RADIANCE_MAXIMUM_BAND_3=float(line.split('=')[-1])
-                elif 'RADIANCE_MAXIMUM_BAND_4' in line:
-                        RADIANCE_MAXIMUM_BAND_4=float(line.split('=')[-1])
-                elif 'RADIANCE_MAXIMUM_BAND_5' in line:
-                        RADIANCE_MAXIMUM_BAND_5=float(line.split('=')[-1])
-                elif 'RADIANCE_MAXIMUM_BAND_6' in line:
-                        RADIANCE_MAXIMUM_BAND_6=float(line.split('=')[-1])
-                elif 'RADIANCE_MAXIMUM_BAND_7' in line:
-                        RADIANCE_MAXIMUM_BAND_7=float(line.split('=')[-1])
-                elif 'REFLECTANCE_MAXIMUM_BAND_2' in line:
-                        REFLECTANCE_MAXIMUM_BAND_2=float(line.split('=')[-1])
-                elif 'REFLECTANCE_MAXIMUM_BAND_3' in line:
-                        REFLECTANCE_MAXIMUM_BAND_3=float(line.split('=')[-1])
-                elif 'REFLECTANCE_MAXIMUM_BAND_4' in line:
-                        REFLECTANCE_MAXIMUM_BAND_4=float(line.split('=')[-1])
-                elif 'REFLECTANCE_MAXIMUM_BAND_5' in line:
-                        REFLECTANCE_MAXIMUM_BAND_5=float(line.split('=')[-1])
-                elif 'REFLECTANCE_MAXIMUM_BAND_6' in line:
-                        REFLECTANCE_MAXIMUM_BAND_6=float(line.split('=')[-1])
-                elif 'REFLECTANCE_MAXIMUM_BAND_7' in line:
-                        REFLECTANCE_MAXIMUM_BAND_7=float(line.split('=')[-1])
-                elif 'SUN_ELEVATION' in line:
-                        SUN_ELEVATION=float(line.split('=')[-1])
-        ESUN_B2=(math.pi*d*d)*(RADIANCE_MAXIMUM_BAND_2/(REFLECTANCE_MAXIMUM_BAND_2*math.cos(math.radians(SUN_ELEVATION)))) 
-        ESUN_B3=(math.pi*d*d)*(RADIANCE_MAXIMUM_BAND_3/(REFLECTANCE_MAXIMUM_BAND_3*math.cos(math.radians(SUN_ELEVATION)))) 
-        ESUN_B4=(math.pi*d*d)*(RADIANCE_MAXIMUM_BAND_4/(REFLECTANCE_MAXIMUM_BAND_4*math.cos(math.radians(SUN_ELEVATION)))) 
-        ESUN_B5=(math.pi*d*d)*(RADIANCE_MAXIMUM_BAND_5/(REFLECTANCE_MAXIMUM_BAND_5*math.cos(math.radians(SUN_ELEVATION)))) 
-        ESUN_B6=(math.pi*d*d)*(RADIANCE_MAXIMUM_BAND_6/(REFLECTANCE_MAXIMUM_BAND_6*math.cos(math.radians(SUN_ELEVATION)))) 
-        ESUN_B7=(math.pi*d*d)*(RADIANCE_MAXIMUM_BAND_7/(REFLECTANCE_MAXIMUM_BAND_7*math.cos(math.radians(SUN_ELEVATION)))) 
-        ESUN=[ESUN_B2,ESUN_B3,ESUN_B4,ESUN_B5,ESUN_B6,ESUN_B7]
-        print ESUN
-        W = []
-        for i in range(len(ESUN)):
-                W += [ESUN[i]/sum(ESUN)]
-        W2=W[0]
-        W3=W[1]
-        W4=W[2]
-        W5=W[3]
-        W6=W[4]
-        W7=W[5]
-        print W
-        
-        print 'Calculating albedo at top of atmosphere (aTOA)...'
-        grass.mapcalc('aTOA=$LS8_corre2*$W2+$LS8_corre3*$W3+$LS8_corre4*$W4+$LS8_corre5*$W5+$LS8_corre6*$W6+$LS8_corre7*$W7',
-                      LS8_corre2='LS8_corre2',W2=W2, 
-                      LS8_corre3='LS8_corre3',W3=W3, 
-                      LS8_corre4='LS8_corre4',W4=W4, 
-                      LS8_corre5='LS8_corre5',W5=W5, 
-                      LS8_corre6='LS8_corre6',W6=W6, 
-                      LS8_corre7='LS8_corre7',W7=W7,         
-                      overwrite='true',
-                      quiet='true')
-        print 'Done!'
-        
         print 'Median surface temperature:', Ts_median,'K'
         
         print 'Calculating shortwave transmissivity of air (Tsw)...'
@@ -160,13 +100,12 @@ if runRLo == {}:
                       overwrite='true',
                       quiet='true')
         print 'Done!'
-        
+     
         print 'Calculating surface albedo (aS)...'
-        grass.mapcalc('aS=($aTOA-0.03)/($Tsw^2)',
-                      aTOA='aTOA',
-                      Tsw='Tsw',
-                      overwrite='true',
-                      quiet='true')
+        grass.run_command('i.albedo',
+                          input='LS8_corre1,LS8_corre2,LS8_corre3,LS8_corre4,LS8_corre5,LS8_corre6,LS8_corre7',
+                          output='aS', overwrite='true', quiet=True)
+
         print 'Done!'
         
         print 'Calculating incoming shortwave radiation (Rsi) - W/m2...'
