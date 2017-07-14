@@ -38,7 +38,7 @@ if runCC == {}:
 
         print 'Composite R=B4 G=B3 B=B2 Landsat 8, be patient...'
         grass.run_command('i.colors.enhance', red='LS8_corre4',green='LS8_corre3',blue='LS8_corre2',quiet=True)
-        grass.run_command('r.composite',red='LS8_corre6', green='LS8_corre5', blue='LS8_corre2', output='CC_432',quiet=True,overwrite=True)
+        grass.run_command('r.composite',red='LS8_corre4', green='LS8_corre3', blue='LS8_corre2', output='CC_432',quiet=True,overwrite=True)
         print 'Done!'
 if runRLo == {}:
         print 'Calculating NDVI...'
@@ -94,20 +94,77 @@ if runRLo == {}:
         Ts_median=g.parse_command('r.univar', flags='ge', map='Ts', quiet = True)['median']        
         print 'Median surface temperature:', Ts_median,'K'
         
+        for line in open(MTLfile[0]):
+                if 'EARTH_SUN_DISTANCE' in line:
+                        d=float(line.split('=')[-1])
+                elif 'RADIANCE_MAXIMUM_BAND_2' in line:
+                        RADIANCE_MAXIMUM_BAND_2=float(line.split('=')[-1])
+                elif 'RADIANCE_MAXIMUM_BAND_3' in line:
+                        RADIANCE_MAXIMUM_BAND_3=float(line.split('=')[-1])
+                elif 'RADIANCE_MAXIMUM_BAND_4' in line:
+                        RADIANCE_MAXIMUM_BAND_4=float(line.split('=')[-1])
+                elif 'RADIANCE_MAXIMUM_BAND_5' in line:
+                        RADIANCE_MAXIMUM_BAND_5=float(line.split('=')[-1])
+                elif 'RADIANCE_MAXIMUM_BAND_6' in line:
+                        RADIANCE_MAXIMUM_BAND_6=float(line.split('=')[-1])
+                elif 'RADIANCE_MAXIMUM_BAND_7' in line:
+                        RADIANCE_MAXIMUM_BAND_7=float(line.split('=')[-1])
+                elif 'REFLECTANCE_MAXIMUM_BAND_2' in line:
+                        REFLECTANCE_MAXIMUM_BAND_2=float(line.split('=')[-1])
+                elif 'REFLECTANCE_MAXIMUM_BAND_3' in line:
+                        REFLECTANCE_MAXIMUM_BAND_3=float(line.split('=')[-1])
+                elif 'REFLECTANCE_MAXIMUM_BAND_4' in line:
+                        REFLECTANCE_MAXIMUM_BAND_4=float(line.split('=')[-1])
+                elif 'REFLECTANCE_MAXIMUM_BAND_5' in line:
+                        REFLECTANCE_MAXIMUM_BAND_5=float(line.split('=')[-1])
+                elif 'REFLECTANCE_MAXIMUM_BAND_6' in line:
+                        REFLECTANCE_MAXIMUM_BAND_6=float(line.split('=')[-1])
+                elif 'REFLECTANCE_MAXIMUM_BAND_7' in line:
+                        REFLECTANCE_MAXIMUM_BAND_7=float(line.split('=')[-1])
+                elif 'SUN_ELEVATION' in line:
+                        SUN_ELEVATION=float(line.split('=')[-1])
+
+        ESUN_B1=(math.pi*d*d)*(RADIANCE_MAXIMUM_BAND_1/REFLECTANCE_MAXIMUM_BAND_1) 
+        ESUN_B2=(math.pi*d*d)*(RADIANCE_MAXIMUM_BAND_2/REFLECTANCE_MAXIMUM_BAND_2) 
+        ESUN_B3=(math.pi*d*d)*(RADIANCE_MAXIMUM_BAND_3/REFLECTANCE_MAXIMUM_BAND_3) 
+        ESUN_B4=(math.pi*d*d)*(RADIANCE_MAXIMUM_BAND_4/REFLECTANCE_MAXIMUM_BAND_4) 
+        ESUN_B5=(math.pi*d*d)*(RADIANCE_MAXIMUM_BAND_5/REFLECTANCE_MAXIMUM_BAND_5) 
+        ESUN_B6=(math.pi*d*d)*(RADIANCE_MAXIMUM_BAND_6/REFLECTANCE_MAXIMUM_BAND_6) 
+        ESUN_B7=(math.pi*d*d)*(RADIANCE_MAXIMUM_BAND_7/REFLECTANCE_MAXIMUM_BAND_7) 
+        ESUN=[ESUN_B1,ESUN_B2,ESUN_B3,ESUN_B4,ESUN_B5,ESUN_B6,ESUN_B7]
+        print ESUN
+      
+        W = []
+        for i in range(len(ESUN)):
+                W += [ESUN[i]/sum(ESUN)]
+        W1=W[0]        
+        W2=W[1]
+        W3=W[2]
+        W4=W[3]
+        W5=W[4]
+        W6=W[5]
+        W7=W[6]
+        print W
+        
+        print 'Calculating albedo at top of atmosphere (aTOA)...'
+        grass.mapcalc('aTOA=$LS8_corre1*$W1+$LS8_corre2*$W2+$LS8_corre3*$W3+$LS8_corre4*$W4+$LS8_corre5*$W5+$LS8_corre6*$W6+$LS8_corre7*$W7',
+                      LS8_corre1='LS8_corre1',W1=W1,
+                      LS8_corre2='LS8_corre2',W2=W2, 
+                      LS8_corre3='LS8_corre3',W3=W3, 
+                      LS8_corre4='LS8_corre4',W4=W4, 
+                      LS8_corre5='LS8_corre5',W5=W5, 
+                      LS8_corre6='LS8_corre6',W6=W6, 
+                      LS8_corre7='LS8_corre7',W7=W7,         
+                      overwrite='true',
+                      quiet='true')
+        print 'Done!'              
         print 'Calculating shortwave transmissivity of air (Tsw)...'
         grass.mapcalc('Tsw=0.75+0.00002*$MDT_Sebal',
                       MDT_Sebal='MDT_Sebal',
                       overwrite='true',
                       quiet='true')
         print 'Done!'
-     
-        print 'Calculating surface albedo (aS)...'
-        grass.run_command('i.albedo',
-                          input='LS8_corre1,LS8_corre2,LS8_corre3,LS8_corre4,LS8_corre5,LS8_corre6,LS8_corre7',
-                          output='aS', overwrite='true', quiet=True)
-
-        print 'Done!'
-        
+                   
         print 'Calculating incoming shortwave radiation (Rsi) - W/m2...'
         grass.mapcalc('Rsi=1367*cos(90-$SUN_ELEVATION)*(1/($d^2))*$Tsw',
                       SUN_ELEVATION=SUN_ELEVATION,
