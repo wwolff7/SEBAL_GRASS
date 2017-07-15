@@ -97,6 +97,8 @@ if runRLo == {}:
         for line in open(MTLfile[0]):
                 if 'EARTH_SUN_DISTANCE' in line:
                         d=float(line.split('=')[-1])
+		elif 'RADIANCE_MAXIMUM_BAND_1' in line:
+                        RADIANCE_MAXIMUM_BAND_1=float(line.split('=')[-1])
                 elif 'RADIANCE_MAXIMUM_BAND_2' in line:
                         RADIANCE_MAXIMUM_BAND_2=float(line.split('=')[-1])
                 elif 'RADIANCE_MAXIMUM_BAND_3' in line:
@@ -109,7 +111,9 @@ if runRLo == {}:
                         RADIANCE_MAXIMUM_BAND_6=float(line.split('=')[-1])
                 elif 'RADIANCE_MAXIMUM_BAND_7' in line:
                         RADIANCE_MAXIMUM_BAND_7=float(line.split('=')[-1])
-                elif 'REFLECTANCE_MAXIMUM_BAND_2' in line:
+		elif 'REFLECTANCE_MAXIMUM_BAND_1' in line:
+                        REFLECTANCE_MAXIMUM_BAND_1=float(line.split('=')[-1])                
+		elif 'REFLECTANCE_MAXIMUM_BAND_2' in line:
                         REFLECTANCE_MAXIMUM_BAND_2=float(line.split('=')[-1])
                 elif 'REFLECTANCE_MAXIMUM_BAND_3' in line:
                         REFLECTANCE_MAXIMUM_BAND_3=float(line.split('=')[-1])
@@ -165,7 +169,15 @@ if runRLo == {}:
                       quiet='true')
         print 'Done!'
                    
-        print 'Calculating incoming shortwave radiation (Rsi) - W/m2...'
+	print 'Calculating surface albedo (aS)...'
+        grass.mapcalc('aS=($aTOA-0.03)/($Tsw^2)',
+                      aTOA='aTOA',
+                      Tsw='Tsw',
+                      overwrite='true',
+                      quiet='true')
+	print 'Done!'
+        
+	print 'Calculating incoming shortwave radiation (Rsi) - W/m2...'
         grass.mapcalc('Rsi=1367*cos(90-$SUN_ELEVATION)*(1/($d^2))*$Tsw',
                       SUN_ELEVATION=SUN_ELEVATION,
                       Tsw='Tsw',
