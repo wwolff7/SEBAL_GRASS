@@ -7,7 +7,7 @@
 
 ## Usage
 
-### Organization of datasets 
+### Organization of datasets
 
 1. Download at [Earth Explorer] (http://earthexplorer.usgs.gov/) Landsat 8 scene (LS8 - OLI/TIRS)
     - For a scene without clouds, select the option **Level 1 GeoTIFF Data
@@ -15,28 +15,28 @@
 
 3. Reproject LS8 images for the coordinate system of interest
    - e.g, WGS 84 24N to SIRGAS 2000 24S, using gdal recursively in command line:
-   - `mkdir rep && for i in *.TIF ; do gdalwarp -s_srs EPSG:32624 -t_srs EPSG:31984 -of GTiff $i rep\$i; done` 
+   - `mkdir rep && for i in *.TIF ; do gdalwarp -s_srs EPSG:32624 -t_srs EPSG:31984 -of GTiff $i rep\$i; done`
 
-4. Remove null values (black borders) of LS8 images 
+4. Remove null values (black borders) of LS8 images
    - e.g, using gdal recursively in command line:
-   - `mkdir nodata && for i in *.TIF; do gdal_translate -a_nodata 0 $i nodata/$i; done` 
+   - `mkdir nodata && for i in *.TIF; do gdal_translate -a_nodata 0 $i nodata/$i; done`
 
 5. Download at [Earth Explorer] (http://earthexplorer.usgs.gov/) the Digital Elevation Model (DEM) from ASTER (remember to choose the same region of LS8 scene)
-   
+
 6. It is necessary to reproject the DEM for the coordinate system of interest and rename to **MDT_Sebal.TIF**
    - e.g, WGS 84 24N to SIRGAS 2000 24S, using gdal in command line:
-   - `gdalwarp -s_srs EPSG:32624 -t_srs EPSG:31984 -of GTiff ASTGTM2_S23W048.tif MDT_Sebal.TIF` 
+   - `gdalwarp -s_srs EPSG:32624 -t_srs EPSG:31984 -of GTiff ASTGTM2_S23W048.tif MDT_Sebal.TIF`
 
 7. Launch a GRASS-GIS 7.X session
     - Select GRASS GIS database directory
-    - Define a new GRASS location 
+    - Define a new GRASS location
       - Read the projection and datum terms from a georeferenced data file
-      - Select the raster **MDT_Sebal.TIF** 
-    - Define a new GRASS mapset  
+      - Select the raster **MDT_Sebal.TIF**
+    - Define a new GRASS mapset
 
 8. Place **Sebal70.py** script in the directory where LS8 images are located
 
-9. In Terminal Linux navigate into the directory where the **Sebal70.py** and LS8 images are located
+9. In Terminal Linux or Command Prompt Windows opened by GRASS, navigate to the directory where the **Sebal70.py** and LS8 images are located
    - Run python in command line:
      - `python Sebal70.py`
    - Follow the instrustructions indicated in Terminal
@@ -72,5 +72,3 @@ Irrigation and Drainage Engineering**, v. 131, n. 1, p. 94–109, 2005. Availabl
 ## Acknowledgements
 
 To the grant 2016/15342-2, São Paulo Research Foundation (FAPESP) by the financial support.
-
-
