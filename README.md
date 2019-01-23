@@ -1,6 +1,6 @@
 # SEBAL_GRASS [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.167350.svg)](https://doi.org/10.5281/zenodo.167350)
 
-<div data-badge-popover="right" data-badge-type="medium-donut" data-doi="10.5281/zenodo.167350" data-hide-no-mentions="true" class="altmetric-embed"></div>
+<div data-badge-popover="right" data-badge-type="medium-donut" data-doi="10.1038/nature.2014.14583" data-hide-no-mentions="true" class="altmetric-embed"></div>
 
 ## Requirements
 
