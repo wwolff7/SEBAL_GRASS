@@ -9,7 +9,7 @@
 
 ### Organization of datasets
 
-1. Download at [Earth Explorer] (http://earthexplorer.usgs.gov/) Landsat 8 scene (LS8 - OLI/TIRS)
+1. Download at [Earth Explorer](http://earthexplorer.usgs.gov/) Landsat 8 scene (LS8 - OLI/TIRS)
     - For a scene without clouds, select the option **Level 1 GeoTIFF Data
     Product**
 
