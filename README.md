@@ -2,8 +2,8 @@
 
 ## Requirements
 
-* GRASS GIS 7.X [https://grasswiki.osgeo.org/wiki/GRASS-Wiki] (https://grasswiki.osgeo.org/wiki/GRASS-Wiki)
-* Python 2.7.X [https://www.python.org/] (https://www.python.org/)
+* GRASS GIS 7.X [https://grasswiki.osgeo.org/wiki/GRASS-Wiki](https://grasswiki.osgeo.org/wiki/GRASS-Wiki)
+* Python 2.7.X [https://www.python.org/](https://www.python.org/)
 
 ## Usage
 
@@ -21,7 +21,7 @@
    - e.g, using gdal recursively in command line:
    - `mkdir nodata && for i in *.TIF; do gdal_translate -a_nodata 0 $i nodata/$i; done`
 
-5. Download at [Earth Explorer] (http://earthexplorer.usgs.gov/) the Digital Elevation Model (DEM) from ASTER (remember to choose the same region of LS8 scene)
+5. Download at [Earth Explorer](http://earthexplorer.usgs.gov/) the Digital Elevation Model (DEM) from ASTER (remember to choose the same region of LS8 scene)
 
 6. It is necessary to reproject the DEM for the coordinate system of interest and rename to **MDT_Sebal.TIF**
    - e.g, WGS 84 24N to SIRGAS 2000 24S, using gdal in command line:
