@@ -15,7 +15,7 @@
 
 3. Reproject LS8 images for the coordinate system of interest
    - e.g, WGS 84 24N to SIRGAS 2000 24S, using gdal recursively in command line:
-   - `mkdir rep && for i in *.TIF ; do gdalwarp -s_srs EPSG:32624 -t_srs EPSG:31984 -of GTiff $i rep\$i; done`
+   - `mkdir rep && for i in *.TIF ; do gdalwarp -s_srs EPSG:32624 -t_srs EPSG:31984 -of GTiff $i rep/$i; done`
 
 4. Remove null values (black borders) of LS8 images
    - e.g, using gdal recursively in command line:
