@@ -44,7 +44,7 @@
 
 ## Remarks
 
-* Tested on Ubuntu 14.04, 16.04 LTS, and Windows 8.
+* Tested on Ubuntu 14.04, 16.04, 18.04 LTS and Windows 8.
 
 ## References
 
